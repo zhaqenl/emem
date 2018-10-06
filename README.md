@@ -136,6 +136,10 @@ to the `html/` directory:
 To change the top-level CSS:
 
     $ emem -M custom.css list.md
+    
+To convert `README.md` to `README.html` in dark mode:
+
+    $ emem -k README.md
 
 To change the syntax highlighter CSS:
 
