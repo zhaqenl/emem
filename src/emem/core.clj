@@ -14,10 +14,11 @@
   "Specification for the command-line options."
   [["-o" "--output HTML"              "specify output file (default: file basename sans extension + .html)" :id :out]
    ["-d" "--directory DIRECTORY"      "specify output directory (default: file directory)" :id :dir]
-   ["-r" "--resources"                "build the resource files only" :id :resources]
+   ["-r" "--resources"                "build the resource files only"]
    ["-R" "--no-resources"             "build HTML output sans resources"]
    ["-c" "--continuous"               "run in continuous build mode"]
    ["-t" "--refresh MILLISECONDS"     "time between rebuilds (default: 200 ms)"]
+   ["-k" "--dark-mode"                "use main-dark.css instead of main.css" :id :dark]
    ["-s" "--standalone"               "embed both the CSS data and JS external reference"]
    ["-a" "--standalone-css"           "embed only the CSS data"]
    ["-f" "--full-width"               "use full page width" :id :full]
@@ -257,6 +258,7 @@ Options:
   :directory String           specify output directory
   :resources Boolean          build the resource files only
   :no-resources Boolean       build HTML output sans resources
+  :dark-mode Boolean          use main-dark.css
   :standalone Boolean         embed both the CSS data and JS external reference
   :standalone-css Boolean     embed only the CSS data
   :full Boolean               use full page width

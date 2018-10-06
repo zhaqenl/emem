@@ -29,7 +29,9 @@
                   (when (in? args) "")
                   (base-name (first args)))
         header (or (:header opts) (:titlehead opts))
-        css (or (:css opts) (root-path opts "static/css/main.css"))
+        css (if (:dark opts)
+              (root-path opts "static/css/main-dark.css")
+              (or (:css opts) (root-path opts "static/css/main.css")))
         style (str (root-path opts "static/css/")
                    (or (:style opts) default-style)
                    ".css")
@@ -68,32 +70,32 @@
             (let [pre-body (str
                             (hi/html
                              (when (:icon opts)
-                              (hi/html
-                               ;; favicon
-                               [:link {:rel "apple-touch-icon" :sizes "180x180" :href apple-touch-icon-180x180}]
-                               [:link {:rel "icon" :type "image/png" :sizes "16x16" :href icon-16x16}]
-                               [:link {:rel "icon" :type "image/png" :sizes "32x32" :href icon-32x32}]
-                               [:link {:rel "manifest" :href manifest}]
-                               [:link {:rel "mask-icon" :color "#5bbad5" :href mask-icon}]
-                               [:meta {:name "theme-color" :content "#ffffff"}]))
+                               (hi/html
+                                ;; favicon
+                                [:link {:rel "apple-touch-icon" :sizes "180x180" :href apple-touch-icon-180x180}]
+                                [:link {:rel "icon" :type "image/png" :sizes "16x16" :href icon-16x16}]
+                                [:link {:rel "icon" :type "image/png" :sizes "32x32" :href icon-32x32}]
+                                [:link {:rel "manifest" :href manifest}]
+                                [:link {:rel "mask-icon" :color "#5bbad5" :href mask-icon}]
+                                [:meta {:name "theme-color" :content "#ffffff"}]))
 
-                            ;; main.css
-                            [:style {:media "all" :type "text/css"}
-                             (slurp-remove-newlines temp css)]
+                             ;; main.css
+                             [:style {:media "all" :type "text/css"}
+                              (slurp-remove-newlines temp css)]
 
-                            ;; inline css
-                            (inline-css opts)
+                             ;; inline css
+                             (inline-css opts)
 
-                            ;; use full page width
-                            (when (:full opts)
-                              (inline-css {:inline "html { max-width: 100%; }"}))
+                             ;; use full page width
+                             (when (:full opts)
+                               (inline-css {:inline "html { max-width: 100%; }"}))
 
-                            (when-not (= (:style opts) "-")
-                              (hi/html
-                               ;; ewan.css
-                               [:style {:media "all" :type "text/css"} (slurp-remove-newlines temp style)]
-                               ;; highlight css
-                               [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css"}]))))]
+                             (when-not (= (:style opts) "-")
+                               (hi/html
+                                ;; ewan.css
+                                [:style {:media "all" :type "text/css"} (slurp-remove-newlines temp style)]
+                                ;; highlight css
+                                [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css"}]))))]
               pre-body)
             (hi/html
              (when (:icon opts)
